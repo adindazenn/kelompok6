@@ -43,7 +43,7 @@ func seedAdmin() error {
 }
 
 func main() {
-	var PORT = os.Getenv("PGPORT")
+	var PORT = os.Getenv("PORT")
     r := router.SetupRouter()
     // Jalankan seeding data admin
 	if err := seedAdmin(); err != nil {
