@@ -14,7 +14,6 @@ var (
 	password	= os.Getenv("PGPASSWORD")
 	port		= os.Getenv("PGPORT")
 	dbname		= os.Getenv("PGDATABASE")
-	db		= *gorm.DB
 )
 
 func InitDB() (*gorm.DB, error) {
