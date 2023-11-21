@@ -17,7 +17,7 @@ var (
 )
 
 func InitDB() (*gorm.DB, error) {
-	config := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	config := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
     db, err := gorm.Open(postgres.Open(config), &gorm.Config{})
     if err != nil {
         return nil, err
