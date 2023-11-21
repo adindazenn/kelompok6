@@ -4,6 +4,7 @@ import (
     "gorm.io/gorm"
     "gorm.io/driver/postgres"
 	"fmt"
+	"os"
 	"github.com/adindazenn/kelompok6/model"
 )
 
