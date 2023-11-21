@@ -8,11 +8,12 @@ import (
 )
 
 const (
-	host		= "localhost"
-	port		= 5432
-	user		= "postgres"
-	password	= "root"
-	dbname		= "postgres"
+	host		= os.Getenv("PGHOST")
+	user		= os.Getenv("PGUSER")
+	password	= os.Getenv("PGPASSWORD")
+	port		= os.Getenv("PGPORT")
+	dbname		= os.Getenv("PGDATABASE")
+	db		= *gorm.DB
 )
 
 func InitDB() (*gorm.DB, error) {
