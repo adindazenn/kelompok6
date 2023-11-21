@@ -8,7 +8,7 @@ import (
 	"github.com/adindazenn/kelompok6/model"
 )
 
-const (
+var (
 	host		= os.Getenv("PGHOST")
 	user		= os.Getenv("PGUSER")
 	password	= os.Getenv("PGPASSWORD")
