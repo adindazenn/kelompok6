@@ -7,6 +7,7 @@ import (
     "github.com/adindazenn/kelompok6/database"
 	"github.com/adindazenn/kelompok6/model"
 	"fmt"
+	"os"
     "golang.org/x/crypto/bcrypt"
     "log"
 )
@@ -42,11 +43,12 @@ func seedAdmin() error {
 }
 
 func main() {
+	var PORT = os.Getenv("PGPORT")
     r := router.SetupRouter()
     // Jalankan seeding data admin
 	if err := seedAdmin(); err != nil {
 		fmt.Println("Error seeding admin data:", err)
 		return
 	}
-    r.Run(":8080") 
+    r.Run(":" + PORT) 
 }
