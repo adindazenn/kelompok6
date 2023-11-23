@@ -7,7 +7,7 @@ import "time"
 type User struct {
     ID        uint       `gorm:"primary_key" json:"id"`
     FullName  string     `json:"full_name" binding:"required"`
-    Email     string     `json:"email" binding:"required,email" gorm:"unique_index"`
+    Email     string     `json:"email" binding:"required,email" gorm:"uniqueIndex"`
     Password  string     `json:"password" binding:"required,min=6"`
     Role      string     `json:"role" binding:"required,oneof=admin member"`
     CreatedAt time.Time  `json:"created_at"`
@@ -17,7 +17,7 @@ type User struct {
 
 type RegisterRequest struct {
     FullName string `json:"full_name"`
-    Email     string     `json:"email" binding:"required,email" gorm:"unique_index"`
+    Email     string     `json:"email" binding:"required,email" gorm:"uniqueIndex"`
     Password  string     `json:"password" binding:"required,min=6"`
 }
 
