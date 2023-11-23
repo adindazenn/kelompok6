@@ -22,17 +22,20 @@ func RegisterUser(c *gin.Context) {
         return
     }
 
-    var newUser model.User
-    if err := c.ShouldBindJSON(&newUser); err != nil {
+    var request model.RegisterRequest 
+    if err := c.ShouldBindJSON(&request); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
 
+    var newUser model.User
     newUser.Role = "member"
     newUser.CreatedAt = time.Now()
+    newUser.FullName = request.FullName
+    newUser.Email = request.Email
 
     // Hash kata sandi sebelum menyimpannya di database
-    hashedPassword, err := bcrypt.GenerateFromPassword([]byte(newUser.Password), bcrypt.DefaultCost)
+    hashedPassword, err := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal meng-hash kata sandi"})
         return
