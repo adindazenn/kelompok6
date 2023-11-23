@@ -17,8 +17,8 @@ type User struct {
 
 type RegisterRequest struct {
     FullName string `json:"full_name"`
-    Email    string `json:"email" binding:"required,email"`
-    Password string `json:"password" binding:"required"`
+    Email     string     `json:"email" binding:"required,email" gorm:"unique_index"`
+    Password  string     `json:"password" binding:"required,min=6"`
 }
 
 type LoginRequest struct {
