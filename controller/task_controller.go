@@ -61,12 +61,12 @@ func CreateTask(c *gin.Context) {
     c.JSON(http.StatusCreated, Response)
 }
 
-func getUserByID(userID int) (model.User, error) {
-	    db, err := database.InitDB()
-	    if err != nil {
-	        c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengakses database"})
-	        return
-	    }
+func getUserByID(userID uint) (model.User, error) {
+    db, err := database.InitDB()
+    if err != nil {
+	c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengakses database"})
+	return
+    }
     var user model.User
     if userErr := db.Where("id = ?", userID).First(&user).Error; err != nil {
         return model.User{}, userErr
