@@ -61,9 +61,22 @@ func CreateTask(c *gin.Context) {
     c.JSON(http.StatusCreated, Response)
 }
 
+func getUserByID(userID int) (model.User, error) {
+	    db, err := database.InitDB()
+	    if err != nil {
+	        c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengakses database"})
+	        return
+	    }
+    var user model.User
+    if userErr := db.Where("id = ?", userID).First(&user).Error; err != nil {
+        return model.User{}, userErr
+    }
+    return user, nil
+}
+
 func GetTasks(c *gin.Context) {
     // Ambil user dari token JWT
-    user, err := GetUserFromToken(c)
+    _, err := GetUserFromToken(c)
     if err != nil {
         c.JSON(http.StatusUnauthorized, gin.H{"error": "Autentikasi gagal"})
         return
@@ -85,6 +98,11 @@ func GetTasks(c *gin.Context) {
     // Membuat respons menggunakan struct TaskResponse
     var response []model.TaskResponse
     for _, task := range tasks {
+	    dataUser, dataErr := getUserByID(task.UserID)
+	        if dataErr != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengambil data user"})
+        	return
+	    }
         taskResponse := model.TaskResponse{
             ID:          task.ID,
             Title:       task.Title,
@@ -94,9 +112,9 @@ func GetTasks(c *gin.Context) {
             CategoryID:  task.CategoryID,
             CreatedAt:   task.CreatedAt,
         }
-        taskResponse.User.ID = user.ID
-        taskResponse.User.Email = user.Email
-        taskResponse.User.FullName = user.FullName
+        taskResponse.User.ID = dataUser.ID
+        taskResponse.User.Email = dataUser.Email
+        taskResponse.User.FullName = dataUser.FullName
         response = append(response, taskResponse)
     }
 
