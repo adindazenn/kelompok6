@@ -69,7 +69,7 @@ func GetTasks(c *gin.Context) {
         return
     }
 
-    // Ambil daftar tugas dari database
+    // Ambil daftar tasks dari database
     db, err := database.InitDB()
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengakses database"})
