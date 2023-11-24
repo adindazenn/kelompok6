@@ -64,14 +64,15 @@ func CreateTask(c *gin.Context) {
 func getUserByID(userID uint) (model.User, error) {
     db, err := database.InitDB()
     if err != nil {
-	c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengakses database"})
-	return
+        return model.User{}, err 
     }
+    
     var user model.User
-    if userErr := db.Where("id = ?", userID).First(&user).Error; err != nil {
-        return model.User{}, userErr
+    if userErr := db.Where("id = ?", userID).First(&user).Error; userErr != nil {
+        return model.User{}, userErr 
     }
-    return user, nil
+    
+    return user, nil 
 }
 
 func GetTasks(c *gin.Context) {
