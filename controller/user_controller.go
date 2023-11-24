@@ -87,7 +87,7 @@ func LoginUser(c *gin.Context) {
     token := jwt.New(jwt.SigningMethodHS256)
     claims := token.Claims.(jwt.MapClaims)
     claims["user_id"] = user.ID
-    tokenString, err := token.SignedString([]byte("my_secret_key")) // Ganti dengan kunci rahasia Anda
+    tokenString, err := token.SignedString([]byte("my_secret_key"))
 
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal membuat token"})
