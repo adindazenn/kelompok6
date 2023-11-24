@@ -77,7 +77,7 @@ func GetTasks(c *gin.Context) {
     }
 
     var tasks []model.Task
-    if err := db.Where("user_id = ?", user.ID).Find(&tasks).Error; err != nil {
+    if err := db.Find(&tasks).Error; err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengambil data tugas"})
         return
     }
